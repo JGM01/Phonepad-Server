@@ -72,6 +72,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		165D49542C9F42B7001E1232 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		16D0C6CD2C9F41DD0061DFB9 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +86,7 @@
 				16D0C6EA2C9F41DE0061DFB9 /* Phonepad ServerTests */,
 				16D0C6F42C9F41DE0061DFB9 /* Phonepad ServerUITests */,
 				16D0C6D72C9F41DD0061DFB9 /* Products */,
+				165D49542C9F42B7001E1232 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,6 +203,9 @@
 			);
 			mainGroup = 16D0C6CD2C9F41DD0061DFB9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				16D0C7042C9F41F10061DFB9 /* XCLocalSwiftPackageReference "../BridgeKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 16D0C6D72C9F41DD0061DFB9 /* Products */;
 			projectDirPath = "";
@@ -393,6 +404,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phonepad Server/Phonepad_Server.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -401,6 +413,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Phonepad Server";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "I need it :)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,6 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phonepad Server/Phonepad_Server.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -428,6 +443,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Phonepad Server";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "I need it :)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,6 +566,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		16D0C7042C9F41F10061DFB9 /* XCLocalSwiftPackageReference "../BridgeKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../BridgeKit;
+		};
+/* End XCLocalSwiftPackageReference section */
 	};
 	rootObject = 16D0C6CE2C9F41DD0061DFB9 /* Project object */;
 }
