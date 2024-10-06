@@ -1,5 +1,6 @@
 import CoreBluetooth
 import Cocoa
+import AppleScriptObjC
 
 class BLEPeripheral: NSObject, ObservableObject {
     @Published var isAdvertising = false
@@ -70,8 +71,61 @@ extension BLEPeripheral: BluetoothServiceDelegate {
     
     func didReceiveAppSwitchRequest(bundleIdentifier: String) {
         print("Received app switch request for bundle identifier: \(bundleIdentifier)")
-        if let app = NSWorkspace.shared.runningApplications.first(where: { $0.bundleIdentifier == bundleIdentifier }) {
-            app.activate(options: .activateIgnoringOtherApps)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // Add a slight delay
+            let workspace = NSWorkspace.shared
+            
+            // Try to find the running app
+            if let runningApp = workspace.runningApplications.first(where: { $0.bundleIdentifier == bundleIdentifier }) {
+                // First, try to activate using native methods
+                if #available(macOS 14.0, *) {
+                    runningApp.activate(options: [])
+                } else {
+                    runningApp.activate(options: .activateIgnoringOtherApps)
+                }
+                
+                // If native activation doesn't work, try AppleScript
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    if runningApp.isActive == false {
+                        self.activateAppUsingAppleScript(appName: runningApp.localizedName ?? "")
+                    } else {
+                        print("Successfully activated app: \(bundleIdentifier)")
+                    }
+                }
+            } else {
+                // If the app is not running, try to launch it
+                if let appURL = workspace.urlForApplication(withBundleIdentifier: bundleIdentifier) {
+                    do {
+                        let configuration = NSWorkspace.OpenConfiguration()
+                        configuration.activates = true
+                         workspace.openApplication(at: appURL, configuration: configuration)
+                        print("Launched and activated app: \(bundleIdentifier)")
+                    } 
+                } else {
+                    print("Could not find app with bundle identifier: \(bundleIdentifier)")
+                }
+            }
+        }
+    }
+
+    private func activateAppUsingAppleScript(appName: String) {
+        let script = """
+        tell application "System Events"
+            if exists process "\(appName)" then
+                set frontmost of process "\(appName)" to true
+            end if
+        end tell
+        """
+        
+        var error: NSDictionary?
+        if let scriptObject = NSAppleScript(source: script) {
+            scriptObject.executeAndReturnError(&error)
+            if let error = error {
+                print("AppleScript execution failed: \(error)")
+                // Fallback to other methods or notify the user
+            } else {
+                print("Activated running app via AppleScript: \(appName)")
+            }
         }
     }
     
